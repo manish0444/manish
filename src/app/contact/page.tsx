@@ -58,7 +58,7 @@ export default function Contact() {
         </Column>
         
         {/* Primary Contact Actions */}
-        <Row gap="m" wrap justify="center">
+        <Row gap="m" wrap align="center">
           <Button
             href={`mailto:${person.email}`}
             variant="primary"
@@ -81,14 +81,14 @@ export default function Contact() {
         
         {/* Contact Details */}
         <Column gap="l" fillWidth>
-          <Row gap="m" vertical="center" justify="center">
+          <Row gap="m" vertical="center" align="center">
             <Icon name="email" onBackground="accent-weak" />
             <Text variant="body-default-l" onBackground="neutral-weak">
               {person.email}
             </Text>
           </Row>
           
-          <Row gap="m" vertical="center" justify="center">
+          <Row gap="m" vertical="center" align="center">
             <Icon name="globe" onBackground="accent-weak" />
             <Text variant="body-default-l" onBackground="neutral-weak">
               Kathmandu, Nepal
@@ -103,7 +103,7 @@ export default function Contact() {
               Connect with me
             </Text>
             
-            <Row gap="s" wrap justify="center">
+            <Row gap="s" wrap align="center">
               {social.map((item) =>
                 item.link && (
                   <Button

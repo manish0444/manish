@@ -1,11 +1,10 @@
 "use client";
 
-import { mailchimp, CTA } from "@/resources";
+import { mailchimp } from "@/resources";
 import { Button, Heading, Text, Background, Column, Row } from "@once-ui-system/core";
 import { opacity, SpacingToken } from "@once-ui-system/core";
 
 export const Mailchimp: React.FC<React.ComponentProps<typeof Column>> = ({ ...flex }) => {
-  if (CTA.display === false) return null;
 
   return (
     <Column
@@ -64,10 +63,10 @@ export const Mailchimp: React.FC<React.ComponentProps<typeof Column>> = ({ ...fl
       />
       <Column maxWidth="xs" horizontal="center">
         <Heading marginBottom="s" variant="display-strong-xs">
-          {CTA.title}
+         Connect with MANISH
         </Heading>
         <Text wrap="balance" marginBottom="l" variant="body-default-l" onBackground="neutral-weak">
-          {CTA.description}
+         Discuss frontend development, technology, and collaboration opportunities
         </Text>
       </Column>
 

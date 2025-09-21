@@ -2,12 +2,13 @@
 export {
   person,
   social,
-  CTA,
   home,
   about,
   blog,
   projects,
 } from "./content";
+
+export type { CTA } from "./content";
 
 export {
   display,
