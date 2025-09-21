@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "@once-ui-system/magic-portfolio",
+      "name": "portfolio",
       "dependencies": {
         "@mdx-js/loader": "^3.1.0",
         "@next/mdx": "^15.3.1",
