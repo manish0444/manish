@@ -1,4 +1,4 @@
-import { getPosts } from "@/utils/utils";
+import { getPosts, getProjectsFromApi, convertApiProjectToPost } from "@/utils/utils";
 import { Column } from "@once-ui-system/core";
 import { ProjectCard } from "@/components";
 
@@ -7,8 +7,24 @@ interface ProjectsProps {
   exclude?: string[];
 }
 
-export function Projects({ range, exclude }: ProjectsProps) {
-  let allProjects = getPosts(["src", "app", "projects", "projects"]);
+export async function Projects({ range, exclude }: ProjectsProps) {
+  // Try to get projects from API first, fallback to MDX files
+  let allProjects;
+  
+  try {
+    const apiProjects = await getProjectsFromApi();
+    if (apiProjects.length > 0) {
+      // Convert API projects to the expected format
+      allProjects = apiProjects.map(convertApiProjectToPost);
+    } else {
+      // Fallback to MDX files
+      allProjects = getPosts(["src", "app", "projects", "projects"]);
+    }
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    // Fallback to MDX files
+    allProjects = getPosts(["src", "app", "projects", "projects"]);
+  }
 
   // Exclude by slug (exact match)
   if (exclude && exclude.length > 0) {
@@ -35,7 +51,8 @@ export function Projects({ range, exclude }: ProjectsProps) {
           description={post.metadata.summary}
           content={post.content}
           avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
-          link={post.metadata.link || ""}
+          link={post.metadata.link || post.metadata.live || ""}
+          github={post.metadata.github || ""}
         />
       ))}
     </Column>

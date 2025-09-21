@@ -30,15 +30,15 @@ export type Person = {
 };
 
 /**
- * Newsletter Section
- * @description The below information will be displayed on the Home page in Newsletter block
+ * CTA Section
+ * @description The below information will be displayed on the Home page in CTA block
  */
-export type Newsletter = {
-  /** Whether to display the newsletter section */
+export type CTA = {
+  /** Whether to display the CTA section */
   display: boolean;
-  /** Title of the newsletter   */
+  /** Title of the CTA   */
   title: React.ReactNode;
-  /** Description of the newsletter */
+  /** Description of the CTA */
   description: React.ReactNode;
 };
 

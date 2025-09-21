@@ -16,6 +16,11 @@ const nextConfig = {
         hostname: "www.google.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "cqqalnupkntijtqiyxws.supabase.co",
+        pathname: "**",
+      },
     ],
   },
   sassOptions: {

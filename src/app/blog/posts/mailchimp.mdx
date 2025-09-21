@@ -1,6 +1,6 @@
 ---
 title: "Set up Mailchimp and collect emails"
-summary: "Set up the Mailchimp newsletter block for your Magic Portfolio."
+summary: "Set up the Mailchimp CTA block for your Magic Portfolio."
 publishedAt: "2025-04-16"
 tag: "Magic Portfolio"
 ---
@@ -29,7 +29,7 @@ Create a new [embed form](https://mailchimp.com/help/add-a-signup-form-to-your-w
   }
 ]} />
 
-## Newsletter content
+## CTA content
 
 You can modify the headline and description in the `content.js` file.
 
@@ -38,9 +38,9 @@ You can modify the headline and description in the `content.js` file.
     codes={[
   {
     code:
-`const newsletter = {
+`const CTA = {
     display: true,
-    title: <>Subscribe to {person.firstName}'s Newsletter</>,
+    title: <>Subscribe to {person.firstName}'s CTA</>,
     description: (
       <>
         I occasionally write about design, technology, and share thoughts on the intersection of creativity and engineering.
@@ -54,7 +54,7 @@ You can modify the headline and description in the `content.js` file.
 
 ## Background effect
 
-There's a pre-configured background in `Mailchimp.tsx` that you can modify in the `mailchimp` object. Set graphic elements such as gradient, dots, lines, and grid and configure their appearance for the newsletter block.
+There's a pre-configured background in `Mailchimp.tsx` that you can modify in the `mailchimp` object. Set graphic elements such as gradient, dots, lines, and grid and configure their appearance for the CTA block.
 
 <CodeBlock
     codeHeight={24}

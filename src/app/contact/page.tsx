@@ -70,7 +70,7 @@ export default function Contact() {
           </Button>
           
           <Button
-            href={`tel:+9779818667950`}
+            href={`tel:+9779766539310`}
             variant="secondary"
             size="l"
             prefixIcon="phone"

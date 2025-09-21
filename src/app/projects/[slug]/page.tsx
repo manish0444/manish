@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPosts } from "@/utils/utils";
+import { getPosts, getProjectBySlugFromApi, convertApiProjectToPost, getProjectsFromApi, ApiProject } from "@/utils/utils";
 import {
   Meta,
   Schema,
@@ -22,10 +22,22 @@ import { Metadata } from "next";
 import { Projects } from "@/components/projects/Projects";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "projects", "projects"]);
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  // Try to get projects from API first, fallback to MDX files
+  let projects = [];
+  try {
+    const apiProjects = await getProjectsFromApi();
+    if (apiProjects.length > 0) {
+      projects = apiProjects.map((project: ApiProject) => ({ slug: project.slug }));
+    } else {
+      const posts = getPosts(["src", "app", "projects", "projects"]);
+      projects = posts.map((post) => ({ slug: post.slug }));
+    }
+  } catch (error) {
+    const posts = getPosts(["src", "app", "projects", "projects"]);
+    projects = posts.map((post) => ({ slug: post.slug }));
+  }
+  
+  return projects;
 }
 
 export async function generateMetadata({
@@ -38,8 +50,20 @@ export async function generateMetadata({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "projects", "projects"]);
-  let post = posts.find((post) => post.slug === slugPath);
+  // Try to get project from API first
+  let post;
+  try {
+    const apiProject = await getProjectBySlugFromApi(slugPath);
+    if (apiProject) {
+      post = convertApiProjectToPost(apiProject);
+    } else {
+      const posts = getPosts(["src", "app", "projects", "projects"]);
+      post = posts.find((post) => post.slug === slugPath);
+    }
+  } catch (error) {
+    const posts = getPosts(["src", "app", "projects", "projects"]);
+    post = posts.find((post) => post.slug === slugPath);
+  }
 
   if (!post) return {};
 
@@ -62,7 +86,20 @@ export default async function Project({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "projects", "projects"]).find((post) => post.slug === slugPath);
+  // Try to get project from API first
+  let post;
+  try {
+    const apiProject = await getProjectBySlugFromApi(slugPath);
+    if (apiProject) {
+      post = convertApiProjectToPost(apiProject);
+    } else {
+      const posts = getPosts(["src", "app", "projects", "projects"]);
+      post = posts.find((post) => post.slug === slugPath);
+    }
+  } catch (error) {
+    const posts = getPosts(["src", "app", "projects", "projects"]);
+    post = posts.find((post) => post.slug === slugPath);
+  }
 
   if (!post) {
     notFound();
@@ -100,6 +137,31 @@ export default async function Project({
           {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
         </Text>
         <Heading variant="display-strong-m">{post.metadata.title}</Heading>
+        {/* Project Links */}
+        {(post.metadata.live || post.metadata.github) && (
+          <Row gap="16" marginTop="16">
+            {post.metadata.live && (
+              <Button
+                href={post.metadata.live}
+                suffixIcon="arrowUpRightFromSquare"
+                variant="secondary"
+                size="s"
+              >
+                View Live Project
+              </Button>
+            )}
+            {post.metadata.github && (
+              <Button
+                href={post.metadata.github}
+                suffixIcon="arrowUpRightFromSquare"
+                variant="secondary"
+                size="s"
+              >
+                View on GitHub
+              </Button>
+            )}
+          </Row>
+        )}
       </Column>
       <Row marginBottom="32" horizontal="center">
         <Row gap="16" vertical="center">

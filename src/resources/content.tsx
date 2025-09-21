@@ -1,4 +1,4 @@
-import { About, Blog, Home, Newsletter, Person, Social, Projects } from "@/types";
+import { About, Blog, Home, CTA, Person, Social, Projects } from "@/types";
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
@@ -12,10 +12,11 @@ const person: Person = {
   languages: ["English", "Nepali"], // optional: Leave the array empty if you don't want to display languages
 };
 
-const newsletter: Newsletter = {
+const CTA: CTA = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>Weekly insights about frontend development and technology</>,
+  title: <>Connect with {person.firstName}</>,
+  description: <>Discuss frontend development, technology, and collaboration opportunities</>,
+
 };
 
 const social: Social = [
@@ -24,12 +25,12 @@ const social: Social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/manishbhandari",
+    link: "https://github.com/manish0444",
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/in/manishbhandari",
+    link: "https://www.linkedin.com/in/anytng",
   },
   {
     name: "Email",
@@ -80,7 +81,7 @@ const about: About = {
   },
   calendar: {
     display: true,
-    link: "https://cal.com",
+    link: "https://cal.com/anytng",
   },
   intro: {
     display: true,
@@ -218,4 +219,4 @@ const projects: Projects = {
 
 // Gallery is removed
 
-export { person, social, newsletter, home, about, blog, projects };
+export { person, social, CTA, home, about, blog, projects };

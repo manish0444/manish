@@ -120,7 +120,7 @@ export type EffectsConfig = {
 };
 
 /**
- * Mailchimp configuration for newsletter forms.
+ * Mailchimp configuration for CTA forms.
  */
 export type MailchimpConfig = {
   action: string;
